@@ -1,0 +1,5 @@
+{
+  "name": "LuxCalc - Flash Calculator",
+  "description": "A minimalist, aesthetic tool for manual flash photography calculations. Calculate Aperture, Distance, ISO, or Flash Power instantly.",
+  "requestFramePermissions": []
+}

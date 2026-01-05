@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- 基础 SEO 标签 -->
+    <title>LuxCalc - 手动闪光灯计算器 | Flash Calculator</title>
+    <meta name="description" content="LuxCalc 是一个简洁美观的手动闪光灯参数计算工具，帮助摄影师快速计算光圈、距离、ISO 和闪光指数。支持公制和英制单位。A minimalist tool for manual flash photography calculations. Calculate Aperture, Distance, ISO, or Flash Power instantly." />
+    <meta name="keywords" content="闪光灯计算器, 手动闪光灯, 光圈计算, ISO计算, 闪光指数, 摄影师工具, flash calculator, manual flash, aperture calculator, ISO calculator, guide number, photography tool" />
+    <meta name="author" content="LuxCalc" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Chinese, English" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- 中英文语言支持 -->
+    <link rel="alternate" hreflang="zh-CN" href="/" />
+    <link rel="alternate" hreflang="en" href="/" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    
+    <!-- Open Graph 标签 (Facebook, LinkedIn 等) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="LuxCalc - 手动闪光灯计算器 | Flash Calculator" />
+    <meta property="og:description" content="一个简洁美观的手动闪光灯参数计算工具，帮助摄影师快速计算光圈、距离、ISO 和闪光指数。A minimalist tool for manual flash photography calculations." />
+    <meta property="og:site_name" content="LuxCalc" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    
+    <!-- Twitter Card 标签 -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="LuxCalc - 手动闪光灯计算器 | Flash Calculator" />
+    <meta name="twitter:description" content="一个简洁美观的手动闪光灯参数计算工具，帮助摄影师快速计算光圈、距离、ISO 和闪光指数。A minimalist tool for manual flash photography calculations." />
+    
+    <!-- 移动端优化 -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#F59E0B" />
+    
+    <!-- 应用名称 -->
+    <meta name="application-name" content="LuxCalc" />
+    <meta name="apple-mobile-web-app-title" content="LuxCalc" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon_light.svg" id="favicon" />
+    <link rel="apple-touch-icon" href="/favicon_light.svg" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              stone: {
+                850: '#1f1f1e',
+                950: '#0c0c0c',
+              },
+              amber: {
+                450: '#F59E0B',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+              mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --slider-track: #e7e5e4; /* stone-200 */
+        --slider-thumb-shadow: rgba(245, 158, 11, 0.3);
+      }
+
+      .dark {
+        --slider-track: #44403c; /* stone-700 */
+        --slider-thumb-shadow: rgba(245, 158, 11, 0.5);
+      }
+
+      /* Custom Range Slider Styling */
+      input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+      }
+      
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #F59E0B;
+        cursor: pointer;
+        margin-top: -8px;
+        box-shadow: 0 0 10px var(--slider-thumb-shadow);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      input[type=range]::-webkit-slider-thumb:hover,
+      input[type=range]::-webkit-slider-thumb:active {
+        transform: translateZ(0) scale(1.1);
+        -webkit-transform: translateZ(0) scale(1.1);
+      }
+
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: var(--slider-track);
+        border-radius: 2px;
+        transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      input[type=range]:focus {
+        outline: none;
+      }
+
+      body {
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      /* iOS兼容的动画优化 */
+      * {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+      }
+
+      /* 硬件加速优化 - iOS兼容 */
+      .transform,
+      [class*="transform"],
+      [class*="translate"],
+      [class*="scale"] {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+      }
+
+      /* 平滑过渡 - iOS优化 */
+      @media (prefers-reduced-motion: no-preference) {
+        * {
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      }
+
+      /* 减少动画偏好设置支持 */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* iOS Safari特定优化 */
+      @supports (-webkit-touch-callout: none) {
+        input[type=range] {
+          -webkit-appearance: none;
+          appearance: none;
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+        }
+      }
+
+      /* 淡入动画 */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate3d(0, 10px, 0) scale(0.98);
+          -webkit-transform: translate3d(0, 10px, 0) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translate3d(0, 0, 0) scale(1);
+          -webkit-transform: translate3d(0, 0, 0) scale(1);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.4s ease-out;
+        -webkit-animation: fadeIn 0.4s ease-out;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+  <body class="antialiased h-full min-h-screen selection:bg-amber-500 selection:text-white bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-e7e5e4">
+    <div id="root"></div>
+  <script>
+    // 初始语言检测，在 React 加载前设置 lang 属性
+    (function() {
+      const lang = navigator.language || navigator.languages?.[0] || 'en';
+      const detectedLang = lang.toLowerCase().startsWith('zh') ? 'zh-CN' : 'en';
+      document.documentElement.lang = detectedLang;
+    })();
+    
+    // 动态更新 favicon 以匹配暗色模式
+    (function() {
+      const updateFavicon = () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const favicon = document.getElementById('favicon');
+        if (favicon) {
+          favicon.href = isDark ? '/favicon_dark.svg' : '/favicon_light.svg';
+        }
+      };
+      
+      // 监听暗色模式变化
+      const observer = new MutationObserver(updateFavicon);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+      
+      // 初始设置（根据时间判断）
+      const hour = new Date().getHours();
+      const initialDark = hour >= 18 || hour < 6;
+      if (initialDark) {
+        document.documentElement.classList.add('dark');
+      }
+      updateFavicon();
+    })();
+  </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
